@@ -1,6 +1,10 @@
 import pandas as pd
 from sklearn.preprocessing import LabelEncoder
 from sklearn.model_selection import train_test_split
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.metrics import accuracy_score
+from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
+
 
 # -----------------------------
 # Load Dataset
@@ -109,3 +113,39 @@ print("\nTraining Feature Shape:", X_train.shape)
 print("Testing Feature Shape:", X_test.shape)
 print("Training Target Shape:", y_train.shape)
 print("Testing Target Shape:", y_test.shape)
+
+# -----------------------------
+# Train Decision Tree
+# -----------------------------
+
+decision_tree = DecisionTreeClassifier(random_state=42)
+
+decision_tree.fit(X_train, y_train)
+
+print("\n✅ Decision Tree model trained successfully!")
+
+# -----------------------------
+# Make Predictions
+# -----------------------------
+
+predictions = decision_tree.predict(X_test)
+
+decoded_predictions = label_encoder.inverse_transform(predictions)
+
+print("\nFirst 10 Decoded Predictions:")
+print(decoded_predictions[:10])
+
+# -----------------------------
+# Accuracy Score
+# -----------------------------
+accuracy = accuracy_score(y_test, predictions)  
+
+print(f"\nAccuracy: {accuracy:.2f}")
+
+cm = confusion_matrix(y_test, predictions)
+
+print("\nConfusion Matrix:")
+print(cm)
+
+print("\nClassification Report:")
+print(classification_report(y_test, predictions, zero_division=0))
