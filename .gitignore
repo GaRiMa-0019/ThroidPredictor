@@ -1,5 +1,13 @@
+# Virtual environment
 .venv/
+
+# Python
 __pycache__/
 .ipynb_checkpoints/
+
+# macOS
 .DS_Store
+._*
+
+# Project outputs
 outputs/models/
