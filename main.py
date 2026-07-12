@@ -6,6 +6,7 @@ from sklearn.metrics import accuracy_score, confusion_matrix, classification_rep
 from sklearn.ensemble import RandomForestClassifier
 import matplotlib.pyplot as plt
 import seaborn as sns
+import joblib
 
 # -----------------------------
 # Load Dataset
@@ -171,6 +172,16 @@ rf_accuracy = accuracy_score(y_test, rf_predictions)
 
 print("\nRandom Forest Accuracy:", rf_accuracy)
 
+print("\n========== Model Comparison ==========")
+print(f"Decision Tree Accuracy : {accuracy:.2%}")
+print(f"Random Forest Accuracy : {rf_accuracy:.2%}")
+
+if accuracy > rf_accuracy:
+    print("🏆 Best Model: Decision Tree")
+else:
+    print("🏆 Best Model: Random Forest")
+
+
 # -----------------------------
 # Confusion Matrix Heatmap
 # -----------------------------
@@ -197,3 +208,12 @@ plt.tight_layout()
 
 plt.savefig("outputs/figures/confusion_matrix_heatmap.png")
 plt.show()
+
+# -----------------------------
+# Save Trained Models
+# -----------------------------
+
+joblib.dump(decision_tree, "outputs/models/decision_tree.pkl")
+joblib.dump(random_forest, "outputs/models/random_forest.pkl")
+
+print("\n✅ Models saved successfully!")
