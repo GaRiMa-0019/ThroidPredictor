@@ -4,6 +4,8 @@ from sklearn.model_selection import train_test_split
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
 from sklearn.ensemble import RandomForestClassifier
+import matplotlib.pyplot as plt
+import seaborn as sns
 
 # -----------------------------
 # Load Dataset
@@ -168,3 +170,30 @@ print(rf_decoded_predictions[:10])
 rf_accuracy = accuracy_score(y_test, rf_predictions)
 
 print("\nRandom Forest Accuracy:", rf_accuracy)
+
+# -----------------------------
+# Confusion Matrix Heatmap
+# -----------------------------
+
+labels = label_encoder.classes_
+
+plt.figure(figsize=(14, 12))
+
+sns.heatmap(
+    cm,
+    cmap="Blues",
+    xticklabels=labels,
+    yticklabels=labels
+)
+
+plt.title("Decision Tree Confusion Matrix")
+plt.xlabel("Predicted Class")
+plt.ylabel("Actual Class")
+
+plt.xticks(rotation=90)
+plt.yticks(rotation=0)
+
+plt.tight_layout()
+
+plt.savefig("outputs/figures/confusion_matrix_heatmap.png")
+plt.show()
